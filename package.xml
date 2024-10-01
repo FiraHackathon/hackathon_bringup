@@ -3,9 +3,9 @@
 <package format="3">
   <name>hackathon_bringup</name>
   <version>0.0.0</version>
-  <description>Package containing path_following demo.</description>
+  <description>Package containing hackathon launches.</description>
 
-  <maintainer email="jean.laneurit@inrae.fr">Jean Laneurit</maintainer>
+  <maintainer email="cyrille.pierre@inrae.fr">Cyrille Pierre</maintainer>
 
   <license>Apache License 2.0</license>
 
