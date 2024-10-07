@@ -20,9 +20,7 @@
     </light>
 
     <gravity>0 0 -9.8</gravity>
-
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
-
     <atmosphere type='adiabatic'/>
 
     <physics type='ode'>
@@ -34,7 +32,13 @@
     <scene>
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
-      <shadows>0</shadows>
+      <shadows>1</shadows>
+      <sky>
+        <time>8</time>
+        <clouds>
+          <speed>5</speed>
+        </clouds>
+      </sky>
     </scene>
 
     <spherical_coordinates>
@@ -56,28 +60,6 @@
       <name>mixed_field</name>
       <pose>103.618 104.172 0.82 0.015032 0.003610 0.335638</pose>
     </include>
-
-    <!-- <state world_name='default'>
-      <model name='farm'>
-        <pose>0 0 0 0 0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link_0'>
-          <pose>0 0 0 0 0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link_1'>
-          <pose>0 0 0 0 0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <light name='sun'>
-        <pose>0 0 10 0 -0 0</pose>
-      </light>
-    </state> -->
 
     <gui fullscreen='0'>
       <camera name='user_camera'>
