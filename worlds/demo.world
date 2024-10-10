@@ -68,5 +68,11 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
+
+    <plugin name="collision_detector_plugin" filename="libgazebo_ros_collision_publisher.so">
+      <robot_model_name>robot</robot_model_name>
+      <ground_collision_name>farm::ground::collision</ground_collision_name>
+    </plugin> 
+
   </world>
 </sdf>
