@@ -70,9 +70,15 @@
     </gui>
 
     <plugin name="collision_detector_plugin" filename="libgazebo_ros_collision_publisher.so">
-      <robot_model_name>robot</robot_model_name>
-      <ground_collision_name>farm::ground::collision</ground_collision_name>
+      <monitored_models>robot</monitored_models>
+      <ignored_links>ground</ignored_links>
+      <ros_pub_topic>evaluation/obstacle_collisions</ros_pub_topic>
     </plugin> 
+
+    <plugin name="collision_detector_plugin" filename="libgazebo_ros_collision_publisher.so">
+      <monitored_models>mixed_field</monitored_models>
+      <ros_pub_topic>evaluation/crop_collisions</ros_pub_topic>
+    </plugin>
 
   </world>
 </sdf>
