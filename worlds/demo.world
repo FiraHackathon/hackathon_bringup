@@ -58,7 +58,7 @@
     <include>
       <uri>model://mixed_field</uri>
       <name>mixed_field</name>
-      <pose>103.618 104.172 0.82 0.015032 0.003610 0.335638</pose>
+      <pose>124.242325 121.087273 0.98 -0.015 -0.005 -2.79589</pose>
     </include>
 
     <gui fullscreen='0'>
