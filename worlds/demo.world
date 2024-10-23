@@ -61,6 +61,12 @@
       <pose>124.242325 121.087273 0.98 -0.015 -0.005 -2.79589</pose>
     </include>
 
+    <include>
+      <uri>model://sloping_field</uri>
+      <name>sloping_field</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose>172.186 133.626 18.727 0.0 0.317 -2.993</pose>
