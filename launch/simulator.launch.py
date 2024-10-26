@@ -22,9 +22,10 @@ from launch.actions import (
     OpaqueFunction,
     GroupAction,
     SetEnvironmentVariable,
+    LogInfo,
 )
 
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 
@@ -36,34 +37,34 @@ from tirrex_demo import (
 
 
 def launch_setup(context, *args, **kwargs):
-    mode = LaunchConfiguration("mode").perform(context)
-    demo = "hackathon_bringup"
+    mode = LaunchConfiguration('mode').perform(context)
+    demo = 'hackathon_bringup'
     demo_timestamp = get_demo_timestamp()
-    robot_namespace = LaunchConfiguration("robot_namespace").perform(context)
-    demo_config_directory = LaunchConfiguration("demo_config_directory").perform(context)
-    robot_config_directory = os.path.join(demo_config_directory, 'robot')
+    robot_namespace = LaunchConfiguration('robot_namespace').perform(context)
+    demo_config_directory = LaunchConfiguration('demo_config_directory').perform(context)
+    robot_config_directory = LaunchConfiguration('robot_config_directory').perform(context)
 
     debug_directory = get_debug_directory(demo, demo_timestamp, False)
     log_directory = get_log_directory(demo, demo_timestamp, False)
 
-    print(" demo_config_directory: ", demo_config_directory)
-    print(" debug_directory: ", debug_directory)
-    print(" log_directory: ", log_directory)
-
-    actions = []
-
-    actions.append(SetEnvironmentVariable("ROS_LOG_DIR", log_directory))
+    actions = [
+        LogInfo(msg=f'demo_config_directory: {demo_config_directory}'),
+        LogInfo(msg=f'robot_config_directory: {robot_config_directory}'),
+        LogInfo(msg=f'debug_directory: {debug_directory}'),
+        LogInfo(msg=f'log_directory: {log_directory}'),
+        SetEnvironmentVariable('ROS_LOG_DIR', log_directory),
+    ]
 
     actions.append(
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(get_package_share_directory("tirrex_demo"), "launch/core.launch.py")
+                os.path.join(get_package_share_directory('tirrex_demo'), 'launch', 'core.launch.py')
             ),
             launch_arguments={
-                "mode": mode,
-                "demo_config_directory": demo_config_directory,
-                "robot_config_directory": robot_config_directory,
-                "robot_namespace": robot_namespace,
+                'mode': mode,
+                'demo_config_directory': demo_config_directory,
+                'robot_config_directory': robot_config_directory,
+                'robot_namespace': robot_namespace,
             }.items(),
         )
     )
@@ -72,9 +73,28 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
-    return LaunchDescription([
-        DeclareLaunchArgument("demo_config_directory"),
-        DeclareLaunchArgument("robot_namespace"),
-        DeclareLaunchArgument("mode"),
+    entities = [
+        DeclareLaunchArgument(
+            'demo_config_directory',
+            description='directory containing the YAML file to configure the simulation',
+        ),
+        DeclareLaunchArgument(
+            'robot_config_directory',
+            default_value=PathJoinSubstitution(
+                [LaunchConfiguration('demo_config_directory'), 'robot']
+            ),
+            description='directory containing the YAML file to configure the spawned robot',
+        ),
+        DeclareLaunchArgument(
+            'robot_namespace',
+            description='ROS namespace used for the robot',
+        ),
+        DeclareLaunchArgument(
+            'mode',
+            default_value='simulation_gazebo_classic',
+            description='used to select the context and nodes to start',
+            choices=['simulation_gazebo_classic', 'simulation', 'live', 'replay'],
+        ),
         OpaqueFunction(function=launch_setup),
-    ])
+    ]
+    return LaunchDescription(entities)
