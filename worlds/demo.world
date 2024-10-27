@@ -75,16 +75,16 @@
       </camera>
     </gui>
 
-    <plugin name="collision_detector_plugin" filename="libgazebo_ros_collision_publisher.so">
+    <plugin name="robot_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
       <monitored_models>robot</monitored_models>
       <ignored_links>ground</ignored_links>
       <ros_pub_topic>evaluation/obstacle_collisions</ros_pub_topic>
     </plugin> 
 
-    <plugin name="collision_detector_plugin" filename="libgazebo_ros_collision_publisher.so">
-      <monitored_models>mixed_field</monitored_models>
-      <ros_pub_topic>evaluation/crop_collisions</ros_pub_topic>
+    <plugin name="crops_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
+      <monitored_links>stem_collisions</monitored_links>
+      <ignored_models>sloping_field</ignored_models>
+      <ros_pub_topic>evaluation/mixed_field/crop_collisions</ros_pub_topic>
     </plugin>
-
   </world>
 </sdf>
