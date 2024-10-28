@@ -88,6 +88,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'robot_namespace',
             description='ROS namespace used for the robot',
+            default_value="robot",
         ),
         DeclareLaunchArgument(
             'mode',

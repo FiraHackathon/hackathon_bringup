@@ -67,6 +67,42 @@
       <pose>0 0 0 0 0 0</pose>
     </include>
 
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/hatchback blue/5</uri>
+      <name>vehicle</name>
+      <pose>66.9665 96.5194 3.24131 0. 0. -0.5</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <name>obstacle0</name>
+      <pose>30.1354 155.027 1.76 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <name>obstacle1</name>
+      <pose>23.6657 158.626 1.90 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <name>obstacle2</name>
+      <pose>28.0349 160.272 1.75 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <name>obstacle3</name>
+      <pose>25.8723 153.817 1.78 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/FIRST 2015 trash can/3</uri>
+      <name>obstacle4</name>
+      <pose>21.0349 145.272 1.75 0. 0. 0.</pose>
+    </include>
+    <!-- <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/male visitor/2</uri>
+      <name>person0</name>
+      <pose>27.12 141.03 2.0 0. 0. 0.</pose>
+    </include> -->
+
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose>172.186 133.626 18.727 0.0 0.317 -2.993</pose>
