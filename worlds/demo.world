@@ -21,7 +21,7 @@
 
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
-    <atmosphere type='adiabatic'/>
+    <atmosphere type='adiabatic' />
 
     <physics type='ode'>
       <max_step_size>0.001</max_step_size>
@@ -68,40 +68,65 @@
     </include>
 
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/hatchback blue/5</uri>
+      <uri>model://hatchback_blue</uri>
       <name>vehicle</name>
-      <pose>66.9665 96.5194 3.24131 0. 0. -0.5</pose>
+      <pose>66.9665 96.5194 0.84 0. 0. -0.5</pose>
     </include>
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <uri>model://construction_cone</uri>
       <name>obstacle0</name>
       <pose>30.1354 155.027 1.76 0. 0. 0.</pose>
     </include>
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <uri>model://construction_cone</uri>
       <name>obstacle1</name>
       <pose>23.6657 158.626 1.90 0. 0. 0.</pose>
     </include>
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <uri>model://construction_cone</uri>
       <name>obstacle2</name>
       <pose>28.0349 160.272 1.75 0. 0. 0.</pose>
     </include>
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/construction cone/3</uri>
+      <uri>model://construction_cone</uri>
       <name>obstacle3</name>
       <pose>25.8723 153.817 1.78 0. 0. 0.</pose>
     </include>
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/FIRST 2015 trash can/3</uri>
+      <uri>model://euro_pallet</uri>
       <name>obstacle4</name>
-      <pose>21.0349 145.272 1.75 0. 0. 0.</pose>
+      <pose>21.0349 145.272 1.9 0. 0. 1.1</pose>
     </include>
-    <!-- <include>
-      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/male visitor/2</uri>
-      <name>person0</name>
-      <pose>27.12 141.03 2.0 0. 0. 0.</pose>
-    </include> -->
+    <include>
+      <uri>model://euro_pallet</uri>
+      <name>obstacle5</name>
+      <pose>22.5349 145.772 1.9 0. 0. 1.5</pose>
+    </include>
+    <include>
+      <uri>model://euro_pallet</uri>
+      <name>obstacle6</name>
+      <pose>25.0349 146.272 1.9 0. 0. 0.9</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>obstacle10</name>
+      <pose>15.13 155.02 1.76 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>obstacle11</name>
+      <pose>10.87 153.81 1.78 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>obstacle12</name>
+      <pose>23.66 163.62 1.90 0. 0. 0.</pose>
+    </include>
+    <include>
+      <uri>model://jersey_barrier</uri>
+      <name>obstacle13</name>
+      <pose>28.03 165.27 1.75 0. 0. 0.</pose>
+    </include>
 
     <gui fullscreen='0'>
       <camera name='user_camera'>
@@ -115,7 +140,7 @@
       <monitored_models>robot</monitored_models>
       <ignored_links>ground</ignored_links>
       <ros_pub_topic>evaluation/obstacle_collisions</ros_pub_topic>
-    </plugin> 
+    </plugin>
 
     <plugin name="crops_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
       <monitored_links>stem_collisions</monitored_links>
