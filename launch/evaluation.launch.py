@@ -13,18 +13,33 @@
 # limitations under the License.
 
 import os
+import yaml
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction, OpaqueFunction
 from launch_ros.actions import Node
+from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 
 
+def get_simulation_world(config_directory):
+    simulation_file = os.path.join(config_directory, "simulation.yaml")
+    with open(simulation_file) as f:
+        data = yaml.safe_load(f)
+
+    return os.path.join(
+        get_package_share_directory(data["world_package"]), "worlds", data["world_name"]
+    )
+
+
 def launch_setup(context, *args, **kwargs):
+    config_directory = LaunchConfiguration("demo_config_directory").perform(context)
+    world_path = get_simulation_world(config_directory)
+
     evaluation_data_path = os.path.join(
         get_package_share_directory("hackathon_evaluation"), "data"
     )
 
-    parameters = {}
+    parameters = {'world_file': world_path}
     for field in ["mixed_field", "sloping_field"]:
         csv_name = f"{field}_stem_positions.csv"
         parameters[f"{field}_data_file"] = os.path.join(evaluation_data_path, csv_name)
@@ -36,7 +51,7 @@ def launch_setup(context, *args, **kwargs):
             name="evaluation",
             exec_name="evaluation",
             parameters=[parameters],
-            # prefix=['gdbserver localhost:1337'],
+            # prefix=['gdbserver :1337'],
         ),
     ]
 
@@ -48,6 +63,10 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "robot_namespace",
             description="ROS namespace used for the robot",
+        ),
+        DeclareLaunchArgument(
+            "demo_config_directory",
+            description="directory containing main YAML files",
         ),
         OpaqueFunction(function=launch_setup),
     ]
