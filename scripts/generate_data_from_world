@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+import sys
+from pymap3d import enu
+import json
+import xml.etree.ElementTree as ET
+import numpy as np
+from scipy.spatial.transform import Rotation
+
+
+def extract_anchor(root: ET.Element) -> tuple:
+    coords = root.find("./world/spherical_coordinates")
+    anchor = (
+        float(coords.findtext("latitude_deg")),
+        float(coords.findtext("longitude_deg")),
+        float(coords.findtext("elevation")),
+    )
+    return anchor
+
+
+def extract_model_pose(root: ET.Element, name: str) -> list:
+    models = root.findall("./world/include")
+
+    for model in models:
+        if model.findtext("name") == name:
+            str_values = model.findtext("pose").split(" ")
+            return list(map(float, str_values))
+
+
+def transform_points(pose, points, anchor) -> list:
+    rot = Rotation.from_euler("xyz", pose[3:6])
+    map_points = rot.apply(points) + np.array(pose[0:3])
+
+    geo_points = []
+    for point in map_points:
+        coords = enu.enu2geodetic(*point, *anchor)
+        geo_points.append(list(coords)[:2] + point.tolist()[:2])
+
+    return geo_points
+
+
+def generate_mixed_field(root: ET.Element, anchor: list) -> list:
+    field_points = [
+        [0.0, 0.0, 0.0],
+        [30.0, 0.0, 0.0],
+        [30.0, 3.0, 0.0],
+        [0.0, 3.0, 0.0],
+        [0.0, 6.0, 0.0],
+        [30.0, 6.0, 0.0],
+    ]
+    pose = extract_model_pose(root, "mixed_field")
+    return transform_points(pose, field_points, anchor)
+
+
+def generate_sloping_field(root: ET.Element, anchor: list) -> list:
+    field_points = [
+        [-10.7559, 195.028, 4.3831],
+        [34.9404, 214.967, 3.6982],
+    ]
+    pose = extract_model_pose(root, "sloping_field")
+    return transform_points(pose, field_points, anchor)
+
+
+def generate_data(world_filename):
+    root = ET.parse(world_filename).getroot()
+    anchor = extract_anchor(root)
+
+    data = {
+        "origin": anchor[:2],
+        "fields": {
+            "mixed_field": generate_mixed_field(root, anchor),
+            "sloping_field": generate_sloping_field(root, anchor),
+        },
+    }
+    return data
+
+
+def save_csv(data, filename):
+    file = open(filename, "w")
+    file.write("field_name,latitude,longitude,x,y\n")
+    for name, points in data["fields"].items():
+        for point in points:
+            file.write(f"{name},{','.join(map(str, point))}\n")
+
+    file.close()
+
+
+def create_geojson_point(point: list, name: str):
+    return {
+        "type": "Feature",
+        "properties": {
+            "field_name": name,
+            "xy": point[2:4],
+        },
+        "geometry": {"coordinates": [point[1], point[0]], "type": "Point"},
+    }
+
+
+def save_geojson(data, filename):
+    features = []
+
+    for name, points in data["fields"].items():
+        features += [create_geojson_point(point, name) for point in points]
+
+    root = {
+        "type": "FeatureCollection",
+        "features": features,
+    }
+
+    with open(filename, "w") as file:
+        json.dump(root, file, indent=2)
+
+
+def save_json(data, filename):
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=2)
+
+
+def main(argv):
+    if len(argv) < 3:
+        print(f"Syntax: {argv[0]} <world_file> <output_file_base>", file=sys.stderr)
+        exit(1)
+
+    world_filename = argv[1]
+    output_name = argv[2]
+
+    data = generate_data(world_filename)
+    save_csv(data, output_name + ".csv")
+    save_geojson(data, output_name + ".geojson")
+    save_json(data, output_name + ".json")
+
+
+if __name__ == "__main__":
+    main(sys.argv)
