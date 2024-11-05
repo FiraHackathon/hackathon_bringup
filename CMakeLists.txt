@@ -4,7 +4,7 @@ project(hackathon_bringup)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch worlds
+  DIRECTORY launch worlds data
   DESTINATION share/${PROJECT_NAME}
 )
 
