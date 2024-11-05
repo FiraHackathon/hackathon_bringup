@@ -84,22 +84,24 @@ def save_csv(data, filename):
     file.close()
 
 
-def create_geojson_point(point: list, name: str):
-    return {
-        "type": "Feature",
-        "properties": {
-            "field_name": name,
-            "xy": point[2:4],
-        },
-        "geometry": {"coordinates": [point[1], point[0]], "type": "Point"},
-    }
-
-
 def save_geojson(data, filename):
     features = []
 
     for name, points in data["fields"].items():
-        features += [create_geojson_point(point, name) for point in points]
+        pairs = list(zip(points[::2], points[1::2]))
+        features.append(
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "MultiLineString",
+                    "coordinates": [[[a[1], a[0]], [b[1], b[0]]] for a, b in pairs],
+                },
+                "properties": {
+                    "field_name": name,
+                    "xy": [[a[2:4], b[2:4]] for a, b in pairs],
+                },
+            }
+        )
 
     root = {
         "type": "FeatureCollection",
