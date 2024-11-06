@@ -33,6 +33,9 @@ def get_simulation_world(config_directory):
 
 def launch_setup(context, *args, **kwargs):
     config_directory = LaunchConfiguration("demo_config_directory").perform(context)
+    field_coverage_config = os.path.join(
+        get_package_share_directory("hackathon_evaluation"), "config", "demo_hackathon.yaml"
+    )
     world_path = get_simulation_world(config_directory)
 
     evaluation_data_path = os.path.join(
@@ -52,6 +55,14 @@ def launch_setup(context, *args, **kwargs):
             exec_name="evaluation",
             parameters=[parameters],
             # prefix=['gdbserver :1337'],
+        ),
+
+        Node(
+            package="hackathon_evaluation",
+            executable="field_coverage_node",
+            name="field_coverage_node",
+            exec_name="field_coverage_node",
+            parameters=[f"{field_coverage_config}"]
         ),
     ]
 
