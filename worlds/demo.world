@@ -70,7 +70,7 @@
     <include>
       <uri>model://hatchback_blue</uri>
       <name>vehicle</name>
-      <pose>66.9665 96.5194 0.84 0. 0. -0.5</pose>
+      <pose>66.9665 96.20 0.84 0. 0. -0.5</pose>
     </include>
     <include>
       <uri>model://construction_cone</uri>
@@ -80,7 +80,7 @@
     <include>
       <uri>model://construction_cone</uri>
       <name>obstacle1</name>
-      <pose>23.6657 158.626 1.90 0. 0. 0.</pose>
+      <pose>21.6657 158.626 1.90 0. 0. 0.</pose>
     </include>
     <include>
       <uri>model://construction_cone</uri>
@@ -90,7 +90,7 @@
     <include>
       <uri>model://construction_cone</uri>
       <name>obstacle3</name>
-      <pose>25.8723 153.817 1.78 0. 0. 0.</pose>
+      <pose>26.8723 153.817 1.78 0. 0. 0.</pose>
     </include>
     <include>
       <uri>model://euro_pallet</uri>
@@ -100,12 +100,17 @@
     <include>
       <uri>model://euro_pallet</uri>
       <name>obstacle5</name>
-      <pose>22.5349 145.772 1.9 0. 0. 1.5</pose>
+      <pose>22.5349 145.772 1.85 0. 0. 1.5</pose>
     </include>
     <include>
       <uri>model://euro_pallet</uri>
       <name>obstacle6</name>
       <pose>25.0349 146.272 1.9 0. 0. 0.9</pose>
+    </include>
+    <include>
+      <uri>model://euro_pallet</uri>
+      <name>obstacle7</name>
+      <pose>42.0 106.2 1.0 0. 0. 0.9</pose>
     </include>
     <include>
       <uri>model://jersey_barrier</uri>
@@ -120,7 +125,7 @@
     <include>
       <uri>model://jersey_barrier</uri>
       <name>obstacle12</name>
-      <pose>23.66 163.62 1.90 0. 0. 0.</pose>
+      <pose>26.66 163.62 1.90 0. 0. 0.</pose>
     </include>
     <include>
       <uri>model://jersey_barrier</uri>
