@@ -54,15 +54,16 @@ def launch_setup(context, *args, **kwargs):
             name="evaluation",
             exec_name="evaluation",
             parameters=[parameters],
-            # prefix=['gdbserver :1337'],
+            namespace="evaluation",
         ),
 
         Node(
             package="hackathon_evaluation",
             executable="field_coverage_node",
-            name="field_coverage_node",
-            exec_name="field_coverage_node",
-            parameters=[f"{field_coverage_config}"]
+            name="field_coverage",
+            exec_name="field_coverage",
+            namespace="evaluation",
+            parameters=[field_coverage_config]
         ),
     ]
 
