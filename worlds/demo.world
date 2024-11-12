@@ -144,19 +144,28 @@
     <plugin name="robot_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
       <monitored_models>robot</monitored_models>
       <ignored_links>ground</ignored_links>
-      <ros_pub_topic>evaluation/obstacle_collisions</ros_pub_topic>
+      <ros_pub_topic>/evaluation/obstacle_collisions</ros_pub_topic>
     </plugin>
 
-    <plugin name="crops_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
+    <plugin name="mixed_field_crops_collision" filename="libgazebo_ros_collision_publisher.so">
       <monitored_links>stem_collisions</monitored_links>
       <ignored_models>sloping_field</ignored_models>
       <ros_pub_topic>/evaluation/mixed_field/crop_collisions</ros_pub_topic>
     </plugin>
 
-    <plugin name="crops_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
+    <plugin name="sloping_field_crops_collision" filename="libgazebo_ros_collision_publisher.so">
       <monitored_links>stem_collisions</monitored_links>
       <ignored_models>mixed_field</ignored_models>
       <ros_pub_topic>/evaluation/sloping_field/crop_collisions</ros_pub_topic>
     </plugin>
+
+    <plugin name="implement_pose_publisher" filename="libgazebo_pose_publisher.so">
+      <model>robot</model>
+      <link>robot_implement_hitch_link</link>
+      <world_frame>map</world_frame>
+      <ros_pub_topic>/evaluation/robot/implement_pose</ros_pub_topic>
+      <update_rate>10</update_rate>
+    </plugin>
+
   </world>
 </sdf>
