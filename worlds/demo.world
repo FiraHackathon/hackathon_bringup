@@ -143,7 +143,7 @@
 
     <plugin name="robot_collision_plugin" filename="libgazebo_ros_collision_publisher.so">
       <monitored_models>robot</monitored_models>
-      <ignored_links>ground</ignored_links>
+      <ignored_links>ground stem_collisions</ignored_links>
       <ros_pub_topic>/evaluation/obstacle_collisions</ros_pub_topic>
     </plugin>
 
