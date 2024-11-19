@@ -43,6 +43,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     parameters = {'world_file': world_path}
+    parameters[f"geofence_data_file"] = os.path.join(evaluation_data_path, "geofence_points.csv")
     for field in ["mixed_field", "sloping_field"]:
         csv_name = f"{field}_stem_positions.csv"
         parameters[f"{field}_data_file"] = os.path.join(evaluation_data_path, csv_name)

@@ -159,6 +159,14 @@
       <ros_pub_topic>/evaluation/sloping_field/crop_collisions</ros_pub_topic>
     </plugin>
 
+    <plugin name="robot_pose_publisher" filename="libgazebo_pose_publisher.so">
+      <model>robot</model>
+      <link>robot_base_footprint</link>
+      <world_frame>map</world_frame>
+      <ros_pub_topic>/evaluation/robot/robot_pose</ros_pub_topic>
+      <update_rate>10</update_rate>
+    </plugin>
+    
     <plugin name="implement_pose_publisher" filename="libgazebo_pose_publisher.so">
       <model>robot</model>
       <link>robot_implement_hitch_link</link>
