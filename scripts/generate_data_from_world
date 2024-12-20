@@ -40,12 +40,12 @@ def transform_points(pose, points, anchor) -> list:
 
 def generate_mixed_field(root: ET.Element, anchor: list) -> list:
     field_points = [
-        [0.0, 0.0, 0.0],
-        [30.0, 0.0, 0.0],
-        [30.0, 3.0, 0.0],
-        [0.0, 3.0, 0.0],
-        [0.0, 6.0, 0.0],
-        [30.0, 6.0, 0.0],
+        [0.0, 1.5, 0.0],
+        [30.0, 1.5, 0.0],
+        [30.0, 4.5, 0.0],
+        [0.0, 4.5, 0.0],
+        [0.0, 7.5, 0.0],
+        [30.0, 7.5, 0.0],
     ]
     pose = extract_model_pose(root, "mixed_field")
     return transform_points(pose, field_points, anchor)
