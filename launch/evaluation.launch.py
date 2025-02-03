@@ -76,6 +76,7 @@ def generate_launch_description():
     entities = [
         DeclareLaunchArgument(
             "robot_namespace",
+            default_value='robot',
             description="ROS namespace used for the robot",
         ),
         DeclareLaunchArgument(
